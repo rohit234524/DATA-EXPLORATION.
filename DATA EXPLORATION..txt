@@ -1,0 +1,37 @@
+# DATA EXPLORATION.
+
+**Import necessary libaries.**
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.datasets import load_iris
+
+**Load the Iris dataset.**
+
+iris=load_iris()
+iris_df=pd.DataFrame(data=iris.data,columns=iris.feature_names)
+iris_df['target']=iris.target
+
+**Display the first few rows of the  dataset.**
+
+print(iris_df.head())
+
+**Check for missing values.**
+
+print("Missing Values:\n",iris_df.isnull().sum())
+
+# Visualize the data using pair plots
+sns.pairplot(iris_df,hue='target',palette='viridis')
+plt.show()
+
+**Visualize the distribution of each feature using box plots.**
+
+plt.figure(figsize=(15,8))
+for i, feature in enumerate(iris.feature_names):
+    plt.subplot(2,2,i+1)
+    sns.boxplot(x='target',y=feature,data=iris_df,palette='viridis')
+    plt.title(f'Distribution of {feature} by Target')
+plt.tight_layout()
+plt.show()
+
